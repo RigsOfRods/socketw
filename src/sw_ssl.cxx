@@ -25,7 +25,7 @@
 
 using namespace std;
 
-#ifdef __WIN32__
+#ifdef _WIN32
 //Defined in sw_base.cxx
 extern int close(int fd);
 extern int fcntl(int fd, int cmd, long arg);
