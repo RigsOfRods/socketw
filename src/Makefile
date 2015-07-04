@@ -33,6 +33,11 @@ dll:	$(OBJECTS)
 dll-strip:	dll
 	@strip SocketW.dll
 
+dylib: all
+	$(CXX) -dynamiclib -o libSocketW.dylib.$(API_VER) -fpic -fPIC -o libSocketW.dylib.$(API_VER).$(SW_VER) $(OBJECTS) $(LIBS)
+	@ln -sf libSocketW.dylib.$(API_VER).$(SW_VER) libSocketW.dylib.$(API_VER)
+	@ln -sf libSocketW.dylib.$(API_VER) libSocketW.dylib
+
 install:	shared
 	@mkdir -p $(PREFIX_H)
 	install -c -m 644 *.h $(PREFIX_H)
@@ -42,6 +47,18 @@ install:	shared
 	@cd $(PREFIX)/lib;\
 	ln -sf libSocketW.so.$(API_VER).$(SW_VER) libSocketW.so.$(API_VER);\
 	ln -sf libSocketW.so.$(API_VER) libSocketW.so
+	@echo "** Headerfiles installed in $(PREFIX_H)"
+	@echo "** Library files installed in $(PREFIX)/lib"
+
+installosx:	dylib
+	@mkdir -p $(PREFIX_H)
+	install -c -m 644 *.h $(PREFIX_H)
+	@mkdir -p $(PREFIX)/lib
+	install -c -m 644 libSocketW.dylib $(PREFIX)/lib
+	install -c libSocketW.dylib.$(API_VER).$(SW_VER) $(PREFIX)/lib
+	@cd $(PREFIX)/lib;\
+	ln -sf libSocketW.dylib.$(API_VER).$(SW_VER) libSocketW.dylib.$(API_VER);\
+	ln -sf libSocketW.dylib.$(API_VER) libSocketW.dylib
 	@echo "** Headerfiles installed in $(PREFIX_H)"
 	@echo "** Library files installed in $(PREFIX)/lib"
 
