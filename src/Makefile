@@ -63,4 +63,4 @@ installosx:	dylib
 	@echo "** Library files installed in $(PREFIX)/lib"
 
 clean:
-	@rm -f *.o *.so *.so.* *.a *.dll *.def
+	@rm -f *.o *.so *.so.* *.a *.dll *.def *.dylib
