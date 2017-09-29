@@ -33,7 +33,7 @@
 #define RSA_KEYEXP RSA_F4 /* 65537 */
 
 // Simple streaming SSL TCP/IP class
-class DECLSPEC SWSSLSocket : public SWInetSocket
+class SWSSLSocket : public SWInetSocket
 {
 public:
 	SWSSLSocket(block_type block=blocking, int keysize=RSA_KEYSIZE);
@@ -45,7 +45,7 @@ public:
 	// badFile      - Couldn't access or use file
 	enum ssl_error{noSSLError, badPasswd, badFile};
 	
-	class DECLSPEC SWSSLError : public SWBaseError
+	class SWSSLError : public SWBaseError
 	{
 	public:
 		SWSSLError();

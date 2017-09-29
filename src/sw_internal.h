@@ -56,22 +56,6 @@ COMPILE_TIME_ASSERT(sint32, sizeof(Sint32) == 4);
 
 #endif /* _SDL_H */
 
-// Some compilers use a special export keyword
-#ifndef DECLSPEC
-  #ifdef __BEOS__
-    #if defined(__GNUC__)
-      #define DECLSPEC __declspec(dllexport)
-    #else
-      #define DECLSPEC __declspec(export)
-    #endif
-  #else
-    #ifdef _WIN32
-      #define DECLSPEC __declspec(dllexport)
-    #else
-      #define DECLSPEC
-    #endif
-  #endif
-#endif
 
 
 #endif /* sw_internal_H */

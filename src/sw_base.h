@@ -37,7 +37,7 @@ bool sw_getVerboseMode(void);
 
 
 // Abstract base class for streaming sockets
-class DECLSPEC SWBaseSocket
+class SWBaseSocket
 {
 public:	
 	SWBaseSocket();
@@ -57,7 +57,7 @@ public:
 	// interrupted  - operation was interrupted by a nonblocked signal
 	enum base_error{ok, fatal, notReady, portInUse, notConnected, msgTooLong, terminated, noResponse, timeout, interrupted};
 	
-	class DECLSPEC SWBaseError
+	class SWBaseError
 	{
 	public:
 		SWBaseError();
