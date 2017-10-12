@@ -1,13 +1,3 @@
-This is an import fork of MySocketW since the original sources disappeared. Its main
-purpose is to preserve the source code but maybe some fixes will be included.
-For further information see the original Readme below. 
-
-
-Original Readme
-================================================================================
-
-
-
 C++ Socket Wrapper (SocketW)
 ================================================================================
 http://www.digitalfanatics.org/cal/socketw/index.html
@@ -15,8 +5,7 @@ http://www.etek.chalmers.se/~e8cal1/socketw/index.html
 
 Author: Anders Lindström - Email: cal@swipnet.se
 
-================================================================================
-1. Intro
+## Intro
 
 SocketW is a cross platform (Linux/FreeBSD/Unix/Win32) streaming socket C++
 library designed to be easy to use. It supports Unix sockets and TCP/IP sockets
@@ -33,17 +22,19 @@ can add a link to your project on the SocketW homepage!
 Patches, bugreports and comments are very much appreciated, please send them to
 the email address at the top of this document.
 
+``` 
 This library is free software; you can redistribute it and/or modify it under
 the terms of the GNU Lesser General Public License as published by the Free 
 Software Foundation; either version 2.1 of the License, or (at your option) any
 later version. This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. Read the file LICENSE for 
-more details.
+more details. 
+```
 
 
-================================================================================
-2. Requirements
+
+## Requirements
 
 - GNU Make (if you want to use the makefiles).
 - An ANSI/ISO C++ compiler. SocketW should conform to ANSI/ISO C++.
@@ -53,52 +44,49 @@ Most good C++ compilers should be able to compile SocketW provided that your
 system supports BSD style sockets and uses sane system headers. Additionally,
 the MS Windows platform is supported using the standard MS WinSock2 library.
 SocketW will use the GNU compiler g++ as default, but this can be changed in the
-file "Makefile.conf".
+file ```Makefile.conf```.
 
 
-================================================================================
-3. Installing
+## Installing
 
-Just do 'make install' to compile and install SocketW. SocketW will be installed
-in /usr/local as default but this can be controlled by changing the "PREFIX"
-line in "Makefile.conf". Make sure that the run-time linker can find the SocketW
+Just do ```make install``` to compile and install SocketW. SocketW will be installed
+in /usr/local as default but this can be controlled by changing the ```PREFIX```
+line in ```Makefile.conf```. Make sure that the run-time linker can find the SocketW
 library after installation (this is usually done by adding the line 
-"/usr/local/lib" to "/etc/ld.so.conf" and then running "ldconfig").
+```/usr/local/lib``` to ```/etc/ld.so.conf``` and then running ```ldconfig```).
 
 If OpenSSL is not installed in the standard location you might need to add
-"-I/path/to/OpenSSL/include" to CFLAGS and "-L/path/to/OpenSSL/lib" to SW_LIBS
-in "Makefile.conf", for example:
+```-I/path/to/OpenSSL/include``` to CFLAGS and ```-L/path/to/OpenSSL/lib``` to SW_LIBS
+in ```Makefile.conf```, for example:
 CFLAGS =-Wall -O3 -ffast-math -I/opt/OpenSSL/include
 SW_LIBS =-L/opt/OpenSSL/lib -lssl -lcrypto
 
 You can also disable OpenSSL support completely by removing the line 
-"#define _HAVE_SSL" in "src/sw_config.h" before compiling SocketW.
+```#define _HAVE_SSL``` in ```src/sw_config.h``` before compiling SocketW.
 
 Some platforms require extra libraries to use the BSD socket subsystem, for
-example Win32 requires that you add "-lws2_32" to SW_LIBS (see section 5) and
-SUN systems requires "-lsocket -lnsl".
+example Win32 requires that you add ```-lws2_32``` to SW_LIBS (see section 5) and
+SUN systems requires ```-lsocket -lnsl```.
 
 
-================================================================================
-4. Library usage
+## Library usage
 
-Just include the line "#include "SocketW.h"" in your code.
+Just include the line ```#include ```SocketW.h`````` in your code.
 
 The normal way to compile code that uses SocketW is with the flags 
-"-I/path/to/SocketW/inlude -I/path/to/OpenSSL/include" if SocketW or OpenSSL
+```-I/path/to/SocketW/inlude -I/path/to/OpenSSL/include``` if SocketW or OpenSSL
 are not installed to /usr (OpenSSL usually is). 
 
 The normal way to link code that uses SocketW is with the flags 
-"-L/path/to/SocketW/lib -lSocketW". If you're using static linking then the 
-flags "-L/path/to/OpenSSL/lib -lssl -lcrypto" also need to be added.
+```-L/path/to/SocketW/lib -lSocketW```. If you're using static linking then the 
+flags ```-L/path/to/OpenSSL/lib -lssl -lcrypto``` also need to be added.
 
 Example:
 g++ -Wall -O3 -I/usr/local/inlude -c my_SocketW_app.cxx
 g++ -o my_SocketW_app my_SocketW_app.o -L/usr/local/lib -lSocketW
 
 
-================================================================================
-5. Cross compiling SocketW to W32
+## Cross compiling SocketW to W32
 
 SocketW can be compiled by a win32 cross compiler. You need a cross compiled 
 version of OpenSSL, precompiled binaries can be found at
@@ -107,9 +95,9 @@ http://gnuwin32.sourceforge.net/packages/openssl.htm.
 A good precompiled cross compiler for x86 Linux can be found at
 http://www.libsdl.org/Xmingw32/index.html.
 
-Before compiling SocketW with "cross-make dll" change the line:
+Before compiling SocketW with ```cross-make dll``` change the line:
 SW_LIBS = -lssl -lcrypto #-lstdc++ -lws2_32
-in "Makefile.conf" into:
+in ```Makefile.conf``` into:
 SW_LIBS = -lssl -lcrypto -lstdc++ -lws2_32
 
 If you want to build a dll ('cross-make dll' or 'dll-strip') then you might 
@@ -117,23 +105,21 @@ want to do 'ln -s ../../bin/i386-mingw32msvc-dllwrap dllwrap' in
 /usr/local/cross-tools/i386-mingw32msvc/bin.
 
 
-================================================================================
-6. Using MS VisC/C++ or Borland CC
+## Using MS VisC/C++ or Borland CC
 
 Should work. You can use the precompiled binaries for OpenSSL if you don't want
 to compile them yourself (http://gnuwin32.sourceforge.net/packages/openssl.htm).
 You can create compatible .lib (import) files for linking with:
 lib.exe /VERBOSE /MACHINE:I386 /DEF:foo.def /OUT:foo.lib /NAME:foo (for VC)
 implib.exe -f foo-bcc.lib foo (for Borland CC)
-(replace "foo" with the library name, e.g. SocketW or openssl).
+(replace ```foo``` with the library name, e.g. SocketW or openssl).
 
 Use the libraries ws2_32 (WinSock2), ssl and crypto if you want to build
 SocketW yourself. You can also use the precompiled Win32 binaries of SocketW 
 (available from the homepage) by creating import files as above for SocketW.
 
 
-================================================================================
-7. Misc.
+## Misc.
 
 You can read the html documentation and study the examples to learn more. Also,
 you should never trust the security of a library without checking yourself. That
@@ -143,4 +129,4 @@ your critical data is encrypted when needed. Just because you're paranoid, it
 doesn't mean you're wrong! :-)
 
 
-/Anders Lindström
+Anders Lindström

@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 3.0.2 )
+cmake_minimum_required( VERSION 2.8 )
 
 # some versioning things
 SET(LIB_MAJOR_VERSION "3")
@@ -20,7 +20,7 @@ set( SOURCES
 
 add_library( SocketW ${SOURCES} )
 
-install( TARGETS SocketW DESTINATION lib )
+install(TARGETS SocketW DESTINATION lib)
 install(DIRECTORY src/ DESTINATION include FILES_MATCHING PATTERN "*.h")
 
 # CPack
@@ -34,7 +34,7 @@ SET(CPACK_PACKAGE_VERSION_MAJOR ${LIB_MAJOR_VERSION})
 SET(CPACK_PACKAGE_VERSION_MINOR ${LIB_MINOR_VERSION})
 SET(CPACK_PACKAGE_VERSION_PATCH ${LIB_BUILD_VERSION})
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
-set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 
 SET(CPACK_GENERATOR ZIP)
 IF(UNIX)
@@ -53,5 +53,5 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${LIB_VERSION}-${CMAKE_SYSTEM
 include(CPack)
 
 # other doc files
-set(DOC_FILES README LICENSE docs/base.html docs/errors.html docs/index.html docs/inet.html docs/intro.html docs/links.html docs/ssl.html docs/unix.html)
+set(DOC_FILES README.md LICENSE docs/base.html docs/errors.html docs/index.html docs/inet.html docs/intro.html docs/links.html docs/ssl.html docs/unix.html)
 install(FILES ${DOC_FILES} DESTINATION doc/socketw/)

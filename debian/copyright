@@ -1,0 +1,9 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Debianized-By: Edgar <Edgar@AnotherFoxGuy.com>
+Upstream-Name: socketw
+Upstream-Contact: Edgar@AnotherFoxGuy.com
+Source: https://github.com/RigsOfRods/socketw
+
+Files: *
+Copyright: 2002-2003 Anders Lindström
+License: LGPL v2.1+

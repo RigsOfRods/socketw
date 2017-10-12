@@ -1,0 +1,15 @@
+Source: socketw
+Priority: extra
+Section: libs
+Maintainer: Edgar <Edgar@AnotherFoxGuy.com>
+Build-Depends: debhelper (>= 9), libssl-dev (<< 1.1)
+Standards-Version: 3.9.8
+Homepage: https://github.com/RigsOfRods/socketw
+Vcs-Git: git://github.com/RigsOfRods/socketw.git
+Vcs-Browser: https://github.com/RigsOfRods/socketw
+
+Package: socketw
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, libssl1.0.0
+Pre-Depends: ${misc:Pre-Depends}
+Description: SocketW is a library which provides cross-platform socket abstraction
