@@ -6,8 +6,7 @@ env:
       - OS=ubuntu DIST=precise
       - OS=ubuntu DIST=xenial
       - OS=ubuntu DIST=yakkety
-      - OS=debian DIST=jessie
-      - OS=debian DIST=wheezy
+      - OS=ubuntu DIST=artful
 
 services:
   - docker
