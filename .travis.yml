@@ -3,11 +3,10 @@ sudo: required
 
 env:
     matrix:
-      - OS=ubuntu DIST=precise
       - OS=ubuntu DIST=xenial
       - OS=ubuntu DIST=yakkety
       - OS=ubuntu DIST=artful
-
+      
 services:
   - docker
 
