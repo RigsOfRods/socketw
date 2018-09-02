@@ -1,25 +1,37 @@
-language: c
-sudo: required
-
 env:
-    matrix:
-      - OS=ubuntu DIST=xenial
-      - OS=ubuntu DIST=yakkety
-      - OS=ubuntu DIST=artful
-      
-services:
-  - docker
+   global:
+     - CONAN_REFERENCE: "SocketW/3.10.36"
+     - CONAN_USERNAME: "anotherfoxguy"
+     - CONAN_LOGIN_USERNAME: "anotherfoxguy"
+     - CONAN_CHANNEL: "SocketW"
+     - CONAN_UPLOAD: "https://api.bintray.com/conan/anotherfoxguy/ror-dependencies"
+
+linux: &linux
+   os: linux
+   sudo: required
+   language: python
+   python: "3.6"
+   services:
+     - docker
+osx: &osx
+   os: osx
+   language: generic
+matrix:
+   include:
+
+      - <<: *linux
+        env: CONAN_GCC_VERSIONS=5 CONAN_DOCKER_IMAGE=lasote/conangcc5
+
+      - <<: *linux
+        env: CONAN_GCC_VERSIONS=6 CONAN_DOCKER_IMAGE=lasote/conangcc6
+
+      - <<: *linux
+        env: CONAN_GCC_VERSIONS=7 CONAN_DOCKER_IMAGE=lasote/conangcc7
 
 install:
-  - if [ $TRAVIS_PULL_REQUEST == "false" ] ; then sudo add-apt-repository ppa:jonathonf/python-2.7 -y && sudo apt-get update && sudo apt-get install python2.7 -y ; fi
-  - if [ $TRAVIS_PULL_REQUEST == "false" ] ; then sudo pip install cloudsmith-cli --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/ ; fi
+  - chmod +x .travis/install.sh
+  - ./.travis/install.sh
 
 script:
-  - cmake -P Docker/configure-dockerfile.cmake
-  - docker build  -t build/packages .
-
-after_success:
-  - docker run -t --name pkgpackages build/packages make package
-  - docker cp pkgpackages:/src/ ./build/
-  - cd ./build/ && ls
-  - if [ $TRAVIS_PULL_REQUEST == "false" ] ; then cloudsmith push deb rigs-of-rods/rigs-of-rods/$OS/$DIST $(find *deb) ; fi
+  - chmod +x .travis/run.sh
+  - ./.travis/run.sh
