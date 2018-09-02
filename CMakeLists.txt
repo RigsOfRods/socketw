@@ -1,5 +1,14 @@
 cmake_minimum_required(VERSION 3.0.2)
 
+project(SocketW)
+
+if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+  include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+  conan_basic_setup()
+endif()
+
+find_package(OpenSSL REQUIRED)
+
 # some versioning things
 SET(LIB_MAJOR_VERSION "3")
 SET(LIB_MINOR_VERSION "10")
@@ -8,8 +17,6 @@ SET(LIB_VERSION "${LIB_MAJOR_VERSION}.${LIB_MINOR_VERSION}.${LIB_BUILD_VERSION}"
 IF (NOT DEFINED LIB_INSTALL_DIR)
     SET(LIB_INSTALL_DIR "lib${LIB_SUFFIX}")
 ENDIF (NOT DEFINED LIB_INSTALL_DIR)
-
-project(SocketW)
 
 set(
         SOURCES
@@ -20,6 +27,9 @@ set(
 )
 
 add_library(SocketW ${SOURCES})
+
+include_directories(${OPENSSL_INCLUDE_DIR})
+target_link_libraries(SocketW PRIVATE OpenSSL::SSL)
 
 install(TARGETS SocketW DESTINATION lib)
 install(DIRECTORY src/ DESTINATION include FILES_MATCHING PATTERN "*.h")
@@ -67,7 +77,3 @@ IF (LINUX_VERSION)
 ENDIF ()
 
 include(CPack)
-
-# other doc files
-set(DOC_FILES README LICENSE docs/base.html docs/errors.html docs/index.html docs/inet.html docs/intro.html docs/links.html docs/ssl.html docs/unix.html)
-install(FILES ${DOC_FILES} DESTINATION doc/socketw/)
