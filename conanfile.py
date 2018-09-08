@@ -27,4 +27,4 @@ class SocketwConan(ConanFile):
         cmake.install()
 
     def package_info(self):
-        self.cpp_info.libs = ["SocketW"]
+        self.cpp_info.libs = tools.collect_libs(self)
