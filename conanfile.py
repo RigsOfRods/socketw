@@ -8,8 +8,6 @@ class SocketwConan(ConanFile):
     url = "https://github.com/RigsOfRods/socketw/issues"
     description = "SocketW is a library which provides cross-platform socket abstraction"
     settings = "os", "compiler", "build_type", "arch"
-    #options = {"shared": [True, False]}
-    #default_options = "shared=False"
     generators = "cmake"
     exports_sources = "src/*", "CMakeLists.txt", "LICENSE", "README"
 

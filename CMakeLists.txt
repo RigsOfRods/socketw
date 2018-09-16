@@ -4,10 +4,10 @@ project(SocketW)
 
 if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-  conan_basic_setup()
+  # For some reason Conans libcxx will break the build 
+  set(CONAN_LIBCXX "")
+  conan_basic_setup(TARGETS)
 endif()
-
-find_package(OpenSSL REQUIRED)
 
 # some versioning things
 SET(LIB_MAJOR_VERSION "3")
@@ -23,8 +23,8 @@ file(GLOB headers "src/*.h")
 
 add_library(SocketW ${sources} ${headers})
 
-include_directories(${OPENSSL_INCLUDE_DIR})
-target_link_libraries(SocketW PRIVATE OpenSSL::SSL)
+include_directories(${CONAN_INCLUDE_DIRS_OPENSSL})
+target_link_libraries(SocketW PRIVATE CONAN_PKG::OpenSSL)
 
 install(TARGETS SocketW DESTINATION lib)
 install(DIRECTORY src/ DESTINATION include FILES_MATCHING PATTERN "*.h")
