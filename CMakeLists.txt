@@ -18,15 +18,10 @@ IF (NOT DEFINED LIB_INSTALL_DIR)
     SET(LIB_INSTALL_DIR "lib${LIB_SUFFIX}")
 ENDIF (NOT DEFINED LIB_INSTALL_DIR)
 
-set(
-        SOURCES
-        src/sw_base.cxx
-        src/sw_inet.cxx
-        src/sw_ssl.cxx
-        src/sw_unix.cxx
-)
+file(GLOB sources "src/*.cxx")
+file(GLOB headers "src/*.h")
 
-add_library(SocketW ${SOURCES})
+add_library(SocketW ${sources} ${headers})
 
 include_directories(${OPENSSL_INCLUDE_DIR})
 target_link_libraries(SocketW PRIVATE OpenSSL::SSL)
