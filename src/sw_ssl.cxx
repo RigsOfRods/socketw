@@ -38,9 +38,9 @@ int X509_get_signature_nid(const X509* peer)
 {
     return OBJ_obj2nid(peer->sig_alg->algorithm);
 }
-auto X509_certificate_type(const X509 *, const EVP_PKEY *pubkey) -> decltype(OBJ_nid2sn(pubkey->type))
+int X509_certificate_type(const X509 *, const EVP_PKEY *pubkey)
 {
-    return OBJ_nid2sn(pubkey->type);
+    return pubkey->type;
 }
 
 int SSL_CTX_up_ref(SSL_CTX *ctx)
@@ -586,7 +586,7 @@ bool SWSSLSocket::get_peerCert_info(SWSSLSocket::peerCert_info *info, SWBaseErro
 		// Key algorithm
 		EVP_PKEY *pkey = X509_get_pubkey(peer);
 		if( pkey ){
-			info->keyAlgorithm = X509_certificate_type(peer, pkey);
+			info->keyAlgorithm = OBJ_nid2sn(X509_certificate_type(peer, pkey));
 			info->keySize = 8 * EVP_PKEY_size(pkey);
 		}else{
 			info->keyAlgorithm = "";
