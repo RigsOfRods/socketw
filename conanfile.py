@@ -13,7 +13,7 @@ class SocketwConan(ConanFile):
 
 
     def requirements(self):
-        self.requires.add('OpenSSL/1.0.2@conan/stable')
+        self.requires.add('OpenSSL/1.1.1b@conan/stable')
 
     def build(self):
         cmake = CMake(self)
