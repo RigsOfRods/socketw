@@ -27,7 +27,7 @@ add_library(SocketW ${sources} ${headers})
 
 if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
 	include_directories(${CONAN_INCLUDE_DIRS_OPENSSL})
-	target_link_libraries(SocketW PRIVATE CONAN_PKG::OpenSSL)
+	target_link_libraries(SocketW PRIVATE CONAN_PKG::openssl)
 else()
 	include_directories(${OPENSSL_INCLUDE_DIR})
 	target_link_libraries(SocketW PRIVATE OpenSSL::SSL)
