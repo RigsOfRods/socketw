@@ -1,8 +1,6 @@
-syntax: glob
 _build/
 build/
 lib/
-
 \.idea/
-
-cmake-build-debug/
+cmake-build-*/
+src/sw_config.h

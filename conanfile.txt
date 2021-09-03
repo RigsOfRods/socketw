@@ -1,0 +1,5 @@
+[requires]
+openssl/1.1.1g
+
+[generators]
+cmake_find_package
