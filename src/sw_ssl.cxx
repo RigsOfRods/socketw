@@ -911,7 +911,7 @@ int SWSSLSocket::recv(char *buf, int bytes, SWBaseError *error)
 	return ret;
 }
 
-extern bool sw_DoThrow, sw_Verbose; // Defined in sw_base.cxx
+extern bool sw_DoThrow; // Defined in sw_base.cxx
 void SWSSLSocket::set_SSLError(SWBaseError *error, SWSSLError name, string msg)
 {
 	// Can this be handled by the standard error handling?
@@ -920,36 +920,27 @@ void SWSSLSocket::set_SSLError(SWBaseError *error, SWSSLError name, string msg)
 		set_error(error, name.be, msg);
 		return;
 	}
-	
-	error_string = msg;
 
-	if(error != NULL){
-		SWSSLError *err;
-		
-		if( (err = dynamic_cast<SWSSLError*>(error)) ){
-			// Ok, "error" is a SWSSLError class, we can set the SSL specific error
-			err->be = name.be;
-			err->se = name.se;
-			err->error_string = msg;
-			err->failed_class = this;
-		} else {
-			// Standard error handling (must be handled by SWBaseSocket::set_error())
-			set_error(error, name.be, msg);
-		}
-	}else{
-		if( sw_Verbose )
-			print_error();
-		
-		if( sw_DoThrow ){
-			SWSSLError e;
-			e.be = name.be;
-			e.se = name.se;
-			e.error_string = msg;
-			e.failed_class = this;
-			throw e;
-		}else
-			exit(-1);	
-	}
+        if( sw_DoThrow ){
+		SWSSLError e;
+                e = name;
+                e.error_string = msg;
+                e.failed_class = this;
+                throw e;
+        } else if(error != NULL){
+                SWSSLError *err;
+
+                if( (err = dynamic_cast<SWSSLError*>(error)) ){
+                        // Ok, "error" is a SWSSLError class, we can set the SSL specific error
+                        err->be = name.be;
+                        err->se = name.se;
+                        err->error_string = msg;
+                        err->failed_class = this;
+                } else {
+                        // Standard error handling (must be handled by SWBaseSocket::set_error())
+                        set_error(error, name.be, msg);
+                }
+        }
 }
 
 void SWSSLSocket::handle_ERRerror(SWBaseError *error, SWSSLError name, string msg)
