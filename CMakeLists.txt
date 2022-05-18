@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 
 # Required for conan
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_BINARY_DIR})
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake" "${CMAKE_BINARY_DIR}")
 
 project(
         SocketW
@@ -10,8 +10,10 @@ project(
         VERSION 3.10.27
 )
 
+include(CMakeCM)
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)
+include(JoinPaths)
 
 SET(CMAKEFILES_INSTALL_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/SocketW")
 
@@ -63,6 +65,9 @@ if (UNIX)
 endif ()
 
 # install the PkgConfig file
+join_paths(libdir_for_pc_file "\${exec_prefix}" "${CMAKE_INSTALL_LIBDIR}")
+join_paths(includedir_for_pc_file "\${prefix}" "${CMAKE_INSTALL_INCLUDEDIR}")
+
 configure_file("${CMAKE_SOURCE_DIR}/SocketW.pc.in" "${CMAKE_BINARY_DIR}/SocketW.pc" @ONLY)
 install(FILES "${CMAKE_BINARY_DIR}/SocketW.pc" DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
 
